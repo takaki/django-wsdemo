@@ -45,9 +45,12 @@ import time
 def logo_png(request):
     import datetime
     logger.debug("pre put()")
-    m_queue.put(str(datetime.datetime.now()))
+    m_queue.put(str(datetime.datetime.now()) + " " + 
+	request.META['HTTP_USER_AGENT'])
     logger.debug("post put()")
-    return HttpResponse(file('wstest/logo.png').read(), mimetype="image/png")
+    response = HttpResponse(file('wsdemo/logo.png').read(), mimetype="image/png")
+    response['If-Modified-Since'] = "Thu, 01 Jun 1970 00:00:00 GMT"
+    return response
 
 @require_websocket
 def echo_time(request):
@@ -57,24 +60,15 @@ def echo_time(request):
         if message is None:
             return
         while True:	
-            try:
-                logger.debug("pre get_nowait()")
-                request.websocket.send('{0}\n'.format(m_queue.get_nowait()))
-                logger.debug("post get_nowait()")
-            except Queue.Empty:
-                logger.debug("except")
-                time.sleep(1.0)
-            # count += 1
-            # request.websocket.send('{0}\n'.format(count))
-            # time.sleep(1.0)	
-            
+            logger.debug("pre get()")
+            request.websocket.send('{0}\n'.format(m_queue.get()))
+            logger.debug("post get()")
 
 def modify_message(message):
     return message.lower()
 
 @accept_websocket
 def lower_case(request):
-    time.sleep(0)	
     if not request.is_websocket():
         message = request.GET['message']
         message = modify_message(message)
