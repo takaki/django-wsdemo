@@ -1,4 +1,4 @@
-Required
+Requires
 
 * django
 * django-websocket
