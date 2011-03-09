@@ -5,7 +5,7 @@ from views import *
 urlpatterns = patterns (
 	'',
     (r'^logo.png$', logo_png),
-    (r'^echo_time$', echo_time),
+    (r'^ua_log$', ua_log),
     (r'^echo$', echo),
     (r'^echo_once$', echo_once),
     (r'^lower_case$', lower_case),

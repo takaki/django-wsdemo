@@ -13,7 +13,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # (r'^admin/', include(admin.site.urls)),
-    (r'^wstest/', include('ws.wstest.urls')),
+    (r'^wsdemo/', include('ws.wsdemo.urls')),
 
     (r'^html/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': 'html', 'show_indexes': True}),

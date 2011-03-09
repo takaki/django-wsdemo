@@ -6,9 +6,6 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-#LOGFILE_FORMAT = "[%(asctime)s %(process)d] %(levelname)s " +
-#"(%(funcName)s: %(module)s:%(lineno)d) %(message)s"
-
 LOGFILE_FORMAT  = '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
 DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 logging.basicConfig(
@@ -53,8 +50,7 @@ def logo_png(request):
     return response
 
 @require_websocket
-def echo_time(request):
-    count = 0
+def ua_log(request):
     while True:
         message = request.websocket.wait()
         if message is None:
