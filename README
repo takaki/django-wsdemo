@@ -1,0 +1,10 @@
+Required
+
+* django
+* django-websocket
+
+Run
+
+./manage.py runserver --multithreaded
+
+
